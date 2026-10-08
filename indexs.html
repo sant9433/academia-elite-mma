@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Elite Martial Arts | Agende sua Aula</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #0b0b0b;
+            color: white;
+        }
+
+        /* MENU */
+        header {
+            width: 100%;
+            background: #111;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid #222;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #e50914;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav a:hover {
+            color: #e50914;
+        }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            padding: 150px 8% 80px;
+            display: flex;
+            align-items: center;
+            background:
+                linear-gradient(rgba(0,0,0,0.75), rgba(0,0,0,0.85)),
+                radial-gradient(circle at center, #471010, #050505 70%);
+        }
+
+        .hero-content {
+            max-width: 700px;
+        }
+
+        .hero h1 {
+            font-size: 58px;
+            line-height: 1.1;
+            margin-bottom: 25px;
+        }
+
+        .hero h1 span {
+            color: #e50914;
+        }
+
+        .hero p {
+            font-size: 19px;
+            color: #ccc;
+            line-height: 1.7;
+            margin-bottom: 35px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #e50914;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #ff1a25;
+            transform: translateY(-2px);
+        }
+
+        /* SEÇÕES */
+        section {
+            padding: 90px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            margin-bottom: 10px;
+        }
+
+        .section-title p {
+            color: #aaa;
+        }
+
+        /* MODALIDADES */
+        .modalidades {
+            background: #111;
+        }
+
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .card {
+            background: #1a1a1a;
+            padding: 35px;
+            border-radius: 10px;
+            border: 1px solid #292929;
+            transition: 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: #e50914;
+        }
+
+        .card h3 {
+            color: #e50914;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .card p {
+            color: #bbb;
+            line-height: 1.6;
+        }
+
+        /* AGENDAMENTO */
+        .agendamento {
+            background: #080808;
+        }
+
+        .form-container {
+            max-width: 650px;
+            margin: auto;
+            background: #151515;
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #292929;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.4);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            background: #222;
+            color: white;
+            border: 1px solid #333;
+            border-radius: 6px;
+            outline: none;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: #e50914;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .form-container .btn {
+            width: 100%;
+            font-size: 16px;
+        }
+
+        #mensagem {
+            margin-top: 20px;
+            text-align: center;
+            color: #36d158;
+            font-weight: bold;
+        }
+
+        /* SOBRE */
+        .sobre {
+            background: #111;
+            text-align: center;
+        }
+
+        .sobre-content {
+            max-width: 800px;
+            margin: auto;
+        }
+
+        .sobre p {
+            color: #bbb;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        /* RODAPÉ */
+        footer {
+            background: #050505;
+            text-align: center;
+            padding: 30px;
+            color: #777;
+        }
+
+        /* RESPONSIVO */
+        @media (max-width: 900px) {
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
+            }
+
+            header {
+                padding: 18px 5%;
+            }
+
+            nav a {
+                margin-left: 10px;
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                display: none;
+            }
+
+            section {
+                padding: 70px 5%;
+            }
+
+            .hero {
+                padding: 130px 5% 70px;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- MENU -->
+    <header>
+        <div class="logo">ELITE MMA</div>
+
+        <nav>
+            <a href="#inicio">Início</a>
+            <a href="#modalidades">Modalidades</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#agendar">Agendar</a>
+        </nav>
+    </header>
+
+
+    <!-- INÍCIO -->
+    <section class="hero" id="inicio">
+
+        <div class="hero-content">
+
+            <h1>
+                Treine como um atleta.
+                <span>Lute como um campeão.</span>
+            </h1>
+
+            <p>
+                Desenvolva sua força, disciplina e confiança através das
+                artes marciais. Agende agora sua primeira aula experimental.
+            </p>
+
+            <a href="#agendar" class="btn">
+                AGENDAR MINHA AULA
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- MODALIDADES -->
+    <section class="modalidades" id="modalidades">
+
+        <div class="section-title">
+
+            <h2>Nossas Modalidades</h2>
+
+            <p>
+                Escolha a modalidade que mais combina com você.
+            </p>
+
+        </div>
+
+
+        <div class="cards">
+
+            <div class="card">
+
+                <h3>🥊 Boxe</h3>
+
+                <p>
+                    Melhore seu condicionamento físico, velocidade,
+                    resistência e técnica através do boxe.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>🥋 Jiu-Jitsu</h3>
+
+                <p>
+                    Aprenda técnicas de defesa pessoal, controle,
+                    quedas e finalizações.
+                </p>
+
+            </div>
+
+
+            <div class="card">
+
+                <h3>🥊 Muay Thai</h3>
+
+                <p>
+                    Desenvolva força, explosão e resistência com
+                    uma das artes marciais mais completas.
+                </p>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- SOBRE -->
+    <section class="sobre" id="sobre">
+
+        <div class="section-title">
+
+            <h2>Por que treinar conosco?</h2>
+
+        </div>
+
+        <div class="sobre-content">
+
+            <p>
+                Nossa academia foi criada para ajudar pessoas de todos
+                os níveis a desenvolverem corpo e mente através das
+                artes marciais. Nossos professores acompanham cada aluno
+                de perto para garantir evolução, segurança e motivação.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- AGENDAMENTO -->
+    <section class="agendamento" id="agendar">
+
+        <div class="section-title">
+
+            <h2>Agende sua Aula Experimental</h2>
+
+            <p>
+                Preencha o formulário abaixo e dê o primeiro passo.
+            </p>
+
+        </div>
+
+
+        <div class="form-container">
+
+            <form id="formAgendamento">
+
+                <div class="form-group">
+
+                    <label for="nome">
+                        Nome completo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nome"
+                        placeholder="Digite seu nome"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="email">
+                        E-mail
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        placeholder="seuemail@email.com"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="telefone">
+                        Telefone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="telefone"
+                        placeholder="(00) 00000-0000"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="modalidade">
+                        Escolha a modalidade
+                    </label>
+
+                    <select id="modalidade" required>
+
+                        <option value="">
+                            Selecione uma modalidade
+                        </option>
+
+                        <option value="Boxe">
+                            Boxe
+                        </option>
+
+                        <option value="Jiu-Jitsu">
+                            Jiu-Jitsu
+                        </option>
+
+                        <option value="Muay Thai">
+                            Muay Thai
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="data">
+                        Escolha a data
+                    </label>
+
+                    <input
+                        type="date"
+                        id="data"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="horario">
+                        Escolha o horário
+                    </label>
+
+                    <select id="horario" required>
+
+                        <option value="">
+                            Selecione um horário
+                        </option>
+
+                        <option value="08:00">
+                            08:00
+                        </option>
+
+                        <option value="10:00">
+                            10:00
+                        </option>
+
+                        <option value="14:00">
+                            14:00
+                        </option>
+
+                        <option value="16:00">
+                            16:00
+                        </option>
+
+                        <option value="18:00">
+                            18:00
+                        </option>
+
+                        <option value="20:00">
+                            20:00
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="observacao">
+                        Observações
+                    </label>
+
+                    <textarea
+                        id="observacao"
+                        placeholder="Digite alguma observação (opcional)"
+                    ></textarea>
+
+                </div>
+
+
+                <button type="submit" class="btn">
+                    CONFIRMAR AGENDAMENTO
+                </button>
+
+                <div id="mensagem"></div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- RODAPÉ -->
+    <footer>
+
+        <p>
+            © 2026 Elite MMA - Todos os direitos reservados.
+        </p>
+
+    </footer>
+
+
+    <!-- JAVASCRIPT -->
+    <script>
+
+        const formulario =
+            document.getElementById("formAgendamento");
+
+        const mensagem =
+            document.getElementById("mensagem");
+
+
+        formulario.addEventListener("submit", function(event) {
+
+            event.preventDefault();
+
+            const nome =
+                document.getElementById("nome").value;
+
+            const modalidade =
+                document.getElementById("modalidade").value;
+
+            const data =
+                document.getElementById("data").value;
+
+            const horario =
+                document.getElementById("horario").value;
+
+
+            mensagem.innerHTML =
+                `✅ Agendamento realizado com sucesso, ${nome}!<br>
+                Modalidade: ${modalidade}<br>
+                Data: ${data}<br>
+                Horário: ${horario}`;
+
+
+            formulario.reset();
+
+        });
+
+    </script>
+
+</body>
+</html>
